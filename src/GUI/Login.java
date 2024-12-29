@@ -9,19 +9,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
+import MANAGER.LoginListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JDialog;
+import javax.swing.Timer;
+
 /**
  *
  * @author Lenovo
  */
 public class Login extends javax.swing.JFrame {
-    Connection con = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+    private Connection con = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
+    
+    private LoginListener loginListener;
+    
     /**
      * Creates new form Login
+     * @param listener
      */
-    public Login() {
+    public Login(LoginListener listener) {
         initComponents();
+        
+        this.loginListener = listener;
+        if (listener instanceof LoginListener) {
+            ((LoginListener)listener).setLoginScreen(this);
+        }
     }
 
     /**
@@ -133,13 +148,13 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        welcome_back.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        welcome_back.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         welcome_back.setForeground(new java.awt.Color(255, 255, 255));
-        welcome_back.setText("═════ welcome back! ══════");
+        welcome_back.setText("═════ Welcome back! ══════");
 
         Vku_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/For_Login/Vku_icon_LogiUI.png"))); // NOI18N
 
-        tittle_under_vku.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
+        tittle_under_vku.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         tittle_under_vku.setForeground(new java.awt.Color(255, 255, 255));
         tittle_under_vku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/For_Login/iconstudy_loginUI.png"))); // NOI18N
         tittle_under_vku.setText("Student Management System");
@@ -159,17 +174,17 @@ public class Login extends javax.swing.JFrame {
                         .addGap(46, 46, 46)
                         .addComponent(welcome_back))
                     .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(tittle_under_vku))
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(student_icon)
                         .addGap(71, 71, 71)
                         .addComponent(teacher_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(LoginPanelLayout.createSequentialGroup()
                         .addGap(97, 97, 97)
-                        .addComponent(Vku_logo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(Vku_logo))
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(tittle_under_vku)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(LoginPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         LoginPanelLayout.setVerticalGroup(
@@ -220,7 +235,29 @@ public class Login extends javax.swing.JFrame {
             pst.setString(1, txtUsername.getText());
             pst.setString(2, txtPassword.getText());
             rs=pst.executeQuery();
-            if (rs.next()){ JOptionPane.showMessageDialog(this, "Login succesfully !");
+            if (rs.next()){ 
+                final JOptionPane pane = new JOptionPane("Please wait...", 
+                                                         JOptionPane.INFORMATION_MESSAGE,
+                                                         JOptionPane.DEFAULT_OPTION,
+                                                         null, new Object[]{}, null
+                                                        );
+                                                         
+                final JDialog dialog = pane.createDialog(this, "Success");
+            
+                // Tạo timer để tự động đóng message box sau 1 giây
+                Timer timer = new Timer(300, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dialog.dispose();
+                    }
+                });
+                timer.setRepeats(false); 
+                timer.start();
+                dialog.setVisible(true);
+            
+                if (loginListener != null) {
+                    loginListener.onLoginSuccess();
+                }
             } else { 
                 JOptionPane.showMessageDialog(this, "Invalid user name or password !");
                 }
@@ -230,40 +267,6 @@ public class Login extends javax.swing.JFrame {
          }  
     }//GEN-LAST:event_Login_ButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LoginLabel;

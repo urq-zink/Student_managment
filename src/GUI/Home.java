@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 /**
  *
  * @author Lenovo
@@ -85,12 +84,12 @@ void closeMenuBar() {
         jLabel9 = new javax.swing.JLabel();
         Menu_icon = new javax.swing.JLabel();
         Consist_Card = new javax.swing.JPanel();
-        Homepage = new javax.swing.JPanel();
-        homapage_tittle = new javax.swing.JLabel();
         Add_student = new javax.swing.JPanel();
         Update = new javax.swing.JPanel();
         academic_performance = new javax.swing.JPanel();
         Exports = new javax.swing.JPanel();
+        Homepage = new javax.swing.JPanel();
+        homapage_tittle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,29 +204,6 @@ void closeMenuBar() {
 
         Consist_Card.setLayout(new java.awt.CardLayout());
 
-        homapage_tittle.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        homapage_tittle.setForeground(new java.awt.Color(0, 102, 102));
-        homapage_tittle.setText("HOMEPAGE");
-
-        javax.swing.GroupLayout HomepageLayout = new javax.swing.GroupLayout(Homepage);
-        Homepage.setLayout(HomepageLayout);
-        HomepageLayout.setHorizontalGroup(
-            HomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomepageLayout.createSequentialGroup()
-                .addContainerGap(437, Short.MAX_VALUE)
-                .addComponent(homapage_tittle)
-                .addGap(394, 394, 394))
-        );
-        HomepageLayout.setVerticalGroup(
-            HomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HomepageLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(homapage_tittle)
-                .addContainerGap(462, Short.MAX_VALUE))
-        );
-
-        Consist_Card.add(Homepage, "card2");
-
         javax.swing.GroupLayout Add_studentLayout = new javax.swing.GroupLayout(Add_student);
         Add_student.setLayout(Add_studentLayout);
         Add_studentLayout.setHorizontalGroup(
@@ -280,6 +256,29 @@ void closeMenuBar() {
 
         Consist_Card.add(Exports, "card6");
 
+        homapage_tittle.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        homapage_tittle.setForeground(new java.awt.Color(0, 102, 102));
+        homapage_tittle.setText("HOMEPAGE");
+
+        javax.swing.GroupLayout HomepageLayout = new javax.swing.GroupLayout(Homepage);
+        Homepage.setLayout(HomepageLayout);
+        HomepageLayout.setHorizontalGroup(
+            HomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HomepageLayout.createSequentialGroup()
+                .addContainerGap(432, Short.MAX_VALUE)
+                .addComponent(homapage_tittle)
+                .addGap(394, 394, 394))
+        );
+        HomepageLayout.setVerticalGroup(
+            HomepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HomepageLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(homapage_tittle)
+                .addContainerGap(461, Short.MAX_VALUE))
+        );
+
+        Consist_Card.add(Homepage, "card2");
+
         javax.swing.GroupLayout PanelTotalLayout = new javax.swing.GroupLayout(PanelTotal);
         PanelTotal.setLayout(PanelTotalLayout);
         PanelTotalLayout.setHorizontalGroup(
@@ -291,7 +290,7 @@ void closeMenuBar() {
                 .addGroup(PanelTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Consist_Card, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelTotalLayout.createSequentialGroup()
-                        .addComponent(Menu_icon)
+                        .addComponent(Menu_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         PanelTotalLayout.setVerticalGroup(
